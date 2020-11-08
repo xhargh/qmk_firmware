@@ -16,7 +16,6 @@
 #include QMK_KEYBOARD_H
 
 // LAYERS
-
 enum Layer {
     _QWERTY = 0,        // Standard QWERTY layer
     _FUNCTION,          // Function key layer
