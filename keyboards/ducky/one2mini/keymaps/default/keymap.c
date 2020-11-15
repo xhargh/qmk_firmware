@@ -15,13 +15,26 @@
  */
 #include QMK_KEYBOARD_H
 
+#ifdef RGBLIGHT_ENABLE
+//Following line allows macro to read current RGB settings
+extern rgblight_config_t rgblight_config;
+#endif
+
 // LAYERS
-#define _QWERTY 0       // Standard QWERTY layer
+enum Layer {
+    _QWERTY = 0,        // Standard QWERTY layer
+    _FUNCTION,          // Function key layer
+    _COLOUR             // RGB key layer
+};
 #define _QW _QWERTY
-#define _FUNCTION 1     // Function key layer
 #define _FN _FUNCTION
-#define _COLOUR 2       // RGB key layer
 #define _CLR _COLOUR
+/* #define _QWERTY 0       // Standard QWERTY layer */
+/* #define _QW _QWERTY */
+/* #define _FUNCTION 1     // Function key layer */
+/* #define _FN _FUNCTION */
+/* #define _COLOUR 2       // RGB key layer */
+/* #define _CLR _COLOUR */
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -62,6 +75,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,                   RGB_TOG,                            _______, _______, _______, _______
   ),
 };
+
+int RGB_current_mode;
+
+void matrix_init_user(void) {
+    //user initialization
+    /* rgblight_sethsv (147,112,219); //set rgb color to medium purple on boot */
+    rgblight_mode(25); //mode 24 = set animation mode to individual key light per key press on boot
+
+    /*
+  #ifdef RGBLIGHT_ENABLE
+    RGB_current_mode = rgblight_config.mode;
+  #endif
+  enum rgb_matrix_effects {
+      RGB_MATRIX_SOLID_COLOR = 1,
+  #ifdef RGB_MATRIX_KEYPRESSES
+      RGB_MATRIX_SOLID_REACTIVE,
+  #endif
+      RGB_MATRIX_EFFECT_MAX
+  };
+  */
+
+}
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // switch (keycode) {
