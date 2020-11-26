@@ -60,10 +60,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FUNCTION] = LAYOUT_all(
     //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
     KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_TRNS,
-    _______, KC_BTN1, KC_UP,   KC_BTN2, KC_WH_U, _______, KC_INS,  _______, KC_MS_U, KC_PAUS, KC_PGUP, KC_HOME, KC_PSCR, _______, KC_TRNS,
+    _______, KC_PGUP, KC_UP,   KC_PGDN, KC_WH_U, _______, KC_INS,  KC_BTN1, KC_MS_U, KC_BTN2, KC_PGUP, KC_HOME, KC_PSCR, _______, KC_TRNS,
     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_WH_D, _______, KC_SLCK, KC_MS_L, KC_MS_D, KC_MS_R, KC_PGDN, KC_END,  _______, KC_ENT,  KC_TRNS,
     _______, _______, _______, KC_APP,  _______, _______, _______, KC_CALC, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,          KC_TRNS,
-    _______, KC_APP,  MO(_CLR),                  _______,                            _______, KC_APP,  _______, _______
+    _______, _______, MO(_CLR),                  _______,                            _______, KC_APP,  _______, _______
   ),
   
   [_COLOUR] = LAYOUT_all(
