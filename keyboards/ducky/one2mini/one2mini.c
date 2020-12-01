@@ -52,6 +52,7 @@ void bootmagic_lite(void) {
  */
 #define USB_LED_CAPSLOCK_INDEX 28  /* Location of CAPS LOCK led in matrix */
 
+#ifdef RGB_MATRIX_ENABLE
 const mbi_led g_mbi_leds[DRIVER_LED_TOTAL] = {
     { 0, 0 }, { 0, 1 }, { 0, 2 }, { 0, 3 }, { 0, 4 }, { 0, 5 }, { 0, 6 }, { 0, 7 }, { 0, 8 }, { 0, 9 }, { 0, 10 }, { 0, 11 }, { 0, 12 }, { 0, 13 },
     { 1, 0 }, { 1, 1 }, { 1, 2 }, { 1, 3 }, { 1, 4 }, { 1, 5 }, { 1, 6 }, { 1, 7 }, { 1, 8 }, { 1, 9 }, { 1, 10 }, { 1, 11 }, { 1, 12 },
@@ -97,6 +98,7 @@ led_config_t g_led_config = { {
 	5, 5, 5, 4, 5, 5, 5, 5
 	
 } }; 
+#endif
 	
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
