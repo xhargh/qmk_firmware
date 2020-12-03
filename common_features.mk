@@ -244,7 +244,7 @@ endif
         WS2812_DRIVER_REQUIRED := yes
     endif
 
-    ifeq ($(strip $(RGB_MATRIX_ENABLE)), MBI5042)
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), MBI5042)
         OPT_DEFS += -DMBI5042
         COMMON_VPATH += $(DRIVER_PATH)/macroblock
         SRC += mbi5042gp.c
@@ -357,7 +357,7 @@ ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
-    ifeq ($(strip $(RGB_MATRIX_ENABLE)), MBI5042)
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), MBI5042)
         OPT_DEFS += -DUSE_CIE1931_16_CURVE
         LED_TABLES = yes
     else
