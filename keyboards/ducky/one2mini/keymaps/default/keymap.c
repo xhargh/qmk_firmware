@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_PGUP, KC_UP,   KC_PGDN, KC_WH_U, _______, KC_INS,  KC_BTN1, KC_MS_U, KC_BTN2, KC_PGUP, KC_HOME, KC_PSCR, _______, KC_TRNS,
     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_WH_D, _______, KC_SLCK, KC_MS_L, KC_MS_D, KC_MS_R, KC_PGDN, KC_END,  _______, KC_ENT,  KC_TRNS,
     _______, _______, _______, KC_APP,  _______, _______, _______, KC_CALC, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,          KC_TRNS,
-    _______, _______, MO(_CLR),                  _______,                            _______, KC_APP,  _______, _______
+    _______, _______, MO(_CLR),                  KC_MPLY,                            _______, KC_APP,  _______, _______
   ),
   
   [_COLOUR] = LAYOUT_all(
@@ -81,7 +81,7 @@ int RGB_current_mode;
 void matrix_init_user(void) {
     //user initialization
     /* rgblight_sethsv (147,112,219); //set rgb color to medium purple on boot */
-    rgblight_mode(25); //mode 24 = set animation mode to individual key light per key press on boot
+    /* rgblight_mode(25); //mode 24 = set animation mode to individual key light per key press on boot */
 
     /*
   #ifdef RGBLIGHT_ENABLE
