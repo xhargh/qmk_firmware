@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments
@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
 */
 #define MATRIX_ROW_PINS { D11, B4, B5, B6, B7 }
-#define MATRIX_COL_PINS { B10, B9, C13, C12, C11, C10, C9, C8, A15, A14, A13, D0, D1, D2, B8 }
+#define MATRIX_COL_PINS { B10, B9, C13, C12, C11, C10, C9, C8, A15, A14, A13, D0, D1, D2,B15,B8 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Ducky One2mini uses MBI5042GP PWM drivers and has 5 rows/14 columns of RBG LED matrix
  * 
  */
-#define DRIVER_LED_TOTAL 62
+#define DRIVER_LED_TOTAL 69
 #define RGB_MATRIX_KEYPRESSES
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
