@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x0416
-#define PRODUCT_ID      0x0123
+#define PRODUCT_ID      0x0124
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Ducky
-#define PRODUCT         One2mini
-#define DESCRIPTION     Ducky One 2 mini RGB 60% keyboard
+#define PRODUCT         One2SF
+#define DESCRIPTION     Ducky One 2 SF RGB 65% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

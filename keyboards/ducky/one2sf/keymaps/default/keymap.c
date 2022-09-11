@@ -15,6 +15,9 @@
  */
 #include QMK_KEYBOARD_H
 
+bool is_gui_tab_active = false;    // ADD this near the begining of keymap.c
+uint16_t gui_tab_timer = 0;  
+
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
@@ -22,13 +25,19 @@ extern rgblight_config_t rgblight_config;
 
 // LAYERS
 enum Layer {
-    _QWERTY = 0,        // Standard QWERTY layer
-    _FUNCTION,          // Function key layer
-    _COLOUR             // RGB key layer
+    WIN = 0,
+    WINFN,
+    MAC,
+    MACFN,
+    FN  
 };
 #define _QW _QWERTY
 #define _FN _FUNCTION
 #define _CLR _COLOUR
+#define KC_TASK LGUI(KC_TAB)        // Task viewer
+#define KC_FLXP LGUI(KC_E)          // Windows file explorer
+#define KC_MCTL KC_MISSION_CONTROL  // Mission Control
+#define KC_LPAD KC_LAUNCHPAD    
 /* #define _QWERTY 0       // Standard QWERTY layer */
 /* #define _QW _QWERTY */
 /* #define _FUNCTION 1     // Function key layer */
@@ -43,12 +52,15 @@ enum custom_keycodes {
   DK_SW3,
   DK_SW4,
   QMKBEST = SAFE_RANGE,
-  QMKURL
+  QMKURL,
+  GUI_TAB,
+  KC_MISSION_CONTROL,
+  KC_LAUNCHPAD,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT_all(
+  [WIN] = LAYOUT_all(
         //       2        3        4        5        6        7        8        9        10       11       12       13       14         15
         KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,
         KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP,
@@ -57,19 +69,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(1),    KC_LALT, KC_LCTL,                            KC_SPC,                    KC_RCTL, KC_RALT, MO(1) ,  KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_FUNCTION] = LAYOUT_all(
+    [WINFN] = LAYOUT_all(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_DEL,
-        KC_CAPS, _______, _______, _______, _______, RGB_MOD, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_MENU, KC_PGUP,
-        _______, _______, _______, _______, _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, KC_ENT,  KC_PGDN,
-        _______, _______, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,   _______, KC_PGUP,
-        _______, _______, MO(2),                              _______,                     MO(2), _______, _______,  KC_HOME, KC_PGDN, KC_END
+        GUI_TAB, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_MENU, KC_PGUP,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_ENT,  KC_PGDN,
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,   _______, KC_PGUP,
+        _______, _______, MO(4),                              _______,                     MO(4), _______, _______,  KC_HOME, KC_PGDN, KC_END
+    ),
+     [MAC] = LAYOUT_all(
+        //       2        3        4        5        6        7        8        9        10       11       12       13       14         15
+        KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_DEL,
+        KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP,
+        MO(3),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_NUHS, KC_ENT,  KC_PGDN,
+        KC_LSFT,  KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,
+        KC_LCTL,    KC_LALT, KC_LGUI,                            KC_SPC,                    KC_LGUI, KC_RALT, MO(3) ,  KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_COLOUR] = LAYOUT_all(
-        KC_ESC, KC_BRID, KC_BRIU, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MSTP,
+    [MACFN] = LAYOUT_all(
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_DEL,
+        GUI_TAB, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_MENU, KC_PGUP,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_ENT,  KC_PGDN,
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,   _______, KC_PGUP,
+        _______, _______, MO(4),                              _______,                     MO(4), _______, _______,  KC_HOME, KC_PGDN, KC_END
+    ),
+
+    [FN] = LAYOUT_all(
+        KC_ESC, KC_BRID, KC_BRIU, KC_MCTL, KC_LPAD, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,
+        KC_CAPS, DF(0), DF(2), KC_FLXP, KC_TASK, RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______, NK_TOGG,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG,
+        _______, _______, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, _______, _______, KC_MSTP,
         _______, _______, _______,                            _______,                   _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT
     ),
 };
@@ -81,7 +109,7 @@ void matrix_init_user(void) {
     /* rgblight_sethsv (147,112,219); //set rgb color to medium purple on boot */
     /* rgblight_mode(25); //mode 24 = set animation mode to individual key light per key press on boot */
 
-    /*
+
   #ifdef RGBLIGHT_ENABLE
     RGB_current_mode = rgblight_config.mode;
   #endif
@@ -92,17 +120,49 @@ void matrix_init_user(void) {
   #endif
       RGB_MATRIX_EFFECT_MAX
   };
-  */
+
 
 }
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // switch (keycode) {
-  // }
-  return true;
+  switch (keycode) {
+      case KC_MISSION_CONTROL:
+          if (record->event.pressed) {
+              host_consumer_send(0x29F);
+          } else {
+              host_consumer_send(0);
+          }
+          return false;  // Skip all further processing of this key
+      case KC_LAUNCHPAD:
+          if (record->event.pressed) {
+              host_consumer_send(0x2A0);
+          } else {
+              host_consumer_send(0);
+          }
+          return false;  // Skip all further processing of this key
+      case GUI_TAB:
+          if (record->event.pressed) {
+              if (!is_gui_tab_active) {
+                  is_gui_tab_active = true;
+                  register_code(KC_LGUI);
+              } 
+              gui_tab_timer = timer_read();
+              register_code(KC_TAB);
+          } else {
+              unregister_code(KC_TAB);
+          }
+          return false;
+      default:
+          return true;  // Process all other keycodes normally
+  }
 }
-
+void matrix_scan_user(void) { 
+  if (is_gui_tab_active && timer_elapsed(gui_tab_timer) > 750) {
+    unregister_code(KC_LGUI);
+    is_gui_tab_active = false;
+  }
+}
 // void matrix_init_user(void) {
 
 // }
