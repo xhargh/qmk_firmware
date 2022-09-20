@@ -279,7 +279,10 @@ void MBI5042GP_write_config_register( uint16_t regValue ) {
         
         tmp_r = tmp_g = tmp_b = regValue;
         /* Set data bit */
-        uint16_t bits = ((0x1u & (tmp_r >> 15)) << 14) | ((0x1u & (tmp_g >> 15)) << 13) | ((0x1u & (tmp_b >> 15)) << 12);
+        uint16_t bits = ((0x1u & (tmp_r >> 15)) << 14) | 
+                        ((0x1u & (tmp_g >> 15)) << 13) | 
+                        ((0x1u & (tmp_b >> 15)) << 12);
+
         PB->DOUT = bits;
 
         /* Cycle DCLK */
@@ -313,7 +316,7 @@ void MBI5042GP_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) 
         led_pos = g_mbi_leds[index];
 
         // MBI5042GP_planar_recode(led.matrix_co.row, 15 - (led.matrix_co.col), red, green, blue);
-        if (index == 27 && IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+        if (index == LED_CAPS_LOCK && IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
             MBI5042GP_planar_recode(led_pos.row, led_pos.col, 0xff, 0xff, 0xff);
         } else {
             MBI5042GP_planar_recode(led_pos.row, led_pos.col, red, green, blue);
@@ -327,18 +330,15 @@ void MBI5042GP_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
     /*
      * brief Set every led to the provided colour
      */
-    
+    int caps_lock=0;
     for (int i = 0; i < MBI5042GP_ROW_COUNT; i++) {
         for (int j = 0; j < 16; j++) {
-            if (i == 2) {
-                if (j == 0) {
-                    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-                        MBI5042GP_planar_recode(i, j, 0xff, 0xff, 0xff);
-                    }
-                }
+            if (caps_lock==LED_CAPS_LOCK) {
+                MBI5042GP_planar_recode(i, j, 0xff, 0xff, 0xff);
             } else {
                 MBI5042GP_planar_recode(i, j, red, green, blue);
             }
+            caps_lock++;
         }
     }
 
@@ -429,7 +429,7 @@ void MBI5042GP_update_pwm_buffers( void ) {
     // Reset PWM count
     // 3 DCLK cycles
     for (int i = 0; i < 3; i++) {
-        MBI5042GP_DCLK = PAL_HIGH;
+        //MBI5042GP_DCLK = PAL_HIGH;
         MBI5042GP_DCLK = PAL_LOW;
     }
 
@@ -438,7 +438,7 @@ void MBI5042GP_update_pwm_buffers( void ) {
 
     // Loop 13 to generate PWM count reset
     for (int i = 0; i < 13; i++) {
-        MBI5042GP_DCLK = PAL_HIGH;
+        //MBI5042GP_DCLK = PAL_HIGH;
         MBI5042GP_DCLK = PAL_LOW;
     }
 

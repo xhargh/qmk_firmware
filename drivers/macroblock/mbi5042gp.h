@@ -41,8 +41,9 @@ extern const mbi_led g_mbi_leds[DRIVER_LED_TOTAL];
 #define MBI5042GP_DCLK_GPIO PD4
 #define MBI5042GP_LE PD3
 
-#define MBI5042GP_ROW_COUNT 5
+#define MBI5042GP_ROW_COUNT 6
 #define MBI5042GP_REFRESH_SPD 2000
+#define LED_CAPS_LOCK 30
 
 void MBI5042GP_init( void );
 

@@ -50,7 +50,7 @@ void bootmagic_lite(void) {
  * @brief   RGB Matrix LED layout
  * @details We need a layout for ISO and ANSI
  */
-#define USB_LED_CAPSLOCK_INDEX 28  /* Location of CAPS LOCK led in matrix */
+#define USB_LED_CAPSLOCK_INDEX 42  /* Location of CAPS LOCK led in matrix */
 
 #ifdef RGB_MATRIX_ENABLE
 const mbi_led g_mbi_leds[DRIVER_LED_TOTAL] = {
