@@ -110,12 +110,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
     [WIN_FN] = LAYOUT_iso_83(
-        _______,  KC_BRID,  KC_BRIU,  KC_TASK,  KC_FLXP,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,    KC_VOLU,  _______,            _______,
+        _______,  KC_BRID,  KC_BRIU,  KC_TASK,  KC_FLXP,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,    KC_VOLU,  DYN_REC_START2,     DYN_MACRO_PLAY2,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            RGB_TOG,
         RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  ALGR(KC_W), _______,                      RGB_VAD,
         _______,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _______, ALGR(KC_P), ALGR(KC_Q), _______, _______,            RGB_VAI,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  NK_TOGG,  _______,  _______,  _______,  _______,              _______,  KC_PGUP,
-        QK_BOOT,  _______,  _______,                                KC_SPC,                                 _______,  _______,    _______,  KC_HOME,  KC_PGDN,  KC_END)
+        QK_BOOT,  _______,  _______,                                QK_RBT,                                 _______,  _______,    _______,  KC_HOME,  KC_PGDN,  KC_END)
 };
 
 // clang-format on
