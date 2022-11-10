@@ -22,7 +22,7 @@
 
 // Record macro on "13", Play macro on "F14"
 // Bootloader on FN + LCTRL
-// Ctrl+C on \| close to Enter
+// "::" or "```" on the button next to Enter
 
 // Right key cluster are Del, Home, End
 // Right key cluster with FN, are toggle RGB, lower intensity, higher intensity
