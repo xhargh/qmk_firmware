@@ -218,7 +218,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_code(KC_LSFT);
                     }
 
-                    SEND_STRING("```");
+                    SEND_STRING("``````"); // extra ` to work around dead keys in US int'l.
 
                     if (rshifted) {
                         register_code(KC_RSFT);
